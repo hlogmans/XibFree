@@ -46,7 +46,7 @@ namespace XibFree.AdvancedNativeViews
             AutoLayout = true;
         }
 
-        public T View
+        public new T View
         {
             get
             {
@@ -72,7 +72,7 @@ namespace XibFree.AdvancedNativeViews
                     _handlerAttached = true;
                 }
                 view.ScrollView.AddObserver(kvohandler, LocalObjectForKVO.KVOID, NSKeyValueObservingOptions.New, IntPtr.Zero);
-
+                
             }
             
         }
