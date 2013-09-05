@@ -165,6 +165,7 @@ namespace XibFree
 		public interface IHost
 		{
 			UIView GetUIView();
+		    void DoAutomaticLayout(Boolean viewHasAutoLayout);
 		}
 
 

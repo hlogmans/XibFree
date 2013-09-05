@@ -120,6 +120,20 @@ namespace XibFree
 
 
 		private ViewGroup _layout;
+
+        // Added by Hugo Logmans to provide automatic layouting
+        public Boolean AutoLayoutDefault { get; set; }
+
+	    public void DoAutomaticLayout(Boolean viewHasAutolayout)
+	    {
+	        if (AutoLayoutDefault || viewHasAutolayout)
+	        {
+	            // only relayout if not ding a fullrelayout, is not neccesary yet because the relayout is only started by user-initiated changes for visibility
+                // otherwise, implement a flag to prevent recursion.
+                SetNeedsLayout();
+
+	        }
+	    }
 	}
 }
 

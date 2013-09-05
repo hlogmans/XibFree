@@ -209,7 +209,9 @@ namespace XibFree
 			}
 			set
 			{
+                var changed = (value != Gone);
 				LayoutParameters.Visibility = value ? Visibility.Gone : Visibility.Visible;
+			    if (changed) DoVisibilityChanged();
 			}
 		}
 
@@ -221,7 +223,9 @@ namespace XibFree
 			}
 			set
 			{
+			    var changed = (value != Visible);
 				LayoutParameters.Visibility = value ? Visibility.Visible : Visibility.Invisible;
+                if (changed) DoVisibilityChanged();
 			}
 		}
 
@@ -237,6 +241,17 @@ namespace XibFree
 		internal SizeF _measuredSize;
 		internal bool _measuredSizeValid;
 		internal ViewGroup _parent;
+
+	    protected Action VisibilityChanged;
+        public Boolean AutoLayout { get; set; }
+
+	    internal void DoVisibilityChanged()
+	    {
+	        if (VisibilityChanged != null) VisibilityChanged();
+	        var host = GetHost();
+
+	        if (host != null) host.DoAutomaticLayout(AutoLayout);
+	    }
 	}
 }
 
