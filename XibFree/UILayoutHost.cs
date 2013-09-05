@@ -113,8 +113,19 @@ namespace XibFree
 		/// </summary>
 		UIView ViewGroup.IHost.GetUIView()
 		{
-			return this;
+            // only exception if this is hosted in a scrollable
+            if (Container != null)
+		    {
+                return Container;
+		    }
+		    else
+		    {
+		        return this;
+		        
+		    }
 		}
+
+        public UIView Container { get; set; }
 
 		#endregion
 
@@ -130,7 +141,12 @@ namespace XibFree
 	        {
 	            // only relayout if not ding a fullrelayout, is not neccesary yet because the relayout is only started by user-initiated changes for visibility
                 // otherwise, implement a flag to prevent recursion.
-                SetNeedsLayout();
+	            if (Container == null)
+	            {
+	                SetNeedsLayout();
+	            }  else {
+	                Container.SetNeedsLayout();
+                }
 
 	        }
 	    }

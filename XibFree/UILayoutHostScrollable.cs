@@ -23,7 +23,7 @@ namespace XibFree
 	/// <summary>
 	/// UILayoutHostScrollable is the native UIView that hosts that XibFree layout
 	/// </summary>
-	public class UILayoutHostScrollable : UIScrollView
+    public class UILayoutHostScrollable : UIScrollView
 	{
 		/// <summary>
 		/// Initializes a new instance of the <see cref="XibFree.UILayoutHostScrollable"/> class.
@@ -32,6 +32,8 @@ namespace XibFree
 		public UILayoutHostScrollable(ViewGroup layout, RectangleF frame) : base(frame)
 		{
 			_layoutHost = new UILayoutHost(layout);
+		    _layoutHost.Container = this; // make sure the child layouthost knowns about this special construction.
+            
 			_layoutHost.AutoresizingMask = UIViewAutoresizing.None;
 			this.AutoresizingMask = UIViewAutoresizing.FlexibleDimensions;
 			this.AddSubview(_layoutHost);
