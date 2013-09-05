@@ -226,5 +226,45 @@ namespace XibFree
 		// The hosted native view
 		private UIView _view;
 	}
+
+    /// <summary>
+    /// This class is a generic version of the NativeView class.
+    /// Additional the Gone property is connected to the View.Hidden element, but only from Gone -> Hidden. On
+    /// initialization the Gone property will be retrieved from the Hidden property of the assigned UIView.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    public class NativeView<T> : NativeView where T : UIView
+    {
+        public NativeView()
+        {
+            Initialize();
+        }
+
+        public NativeView(UIView view, LayoutParameters lp)
+            : base(view, lp)
+        {
+            Initialize();
+            Gone = view.Hidden;
+        }
+
+        private void Initialize()
+        {
+            VisibilityChanged += () =>
+            {
+                if (View != null && Gone != View.Hidden) View.Hidden = Gone;
+            };
+        }
+        public new T View
+        {
+            get { return (T)base.View; }
+            set
+            {
+                base.View = value;
+                Gone = value.Hidden; // update the hidden and gone property
+            }
+        }
+
+    }
+
 }
 
