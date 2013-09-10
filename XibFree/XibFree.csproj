@@ -48,6 +48,7 @@
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.MonoTouch.CSharp.targets" />
   <ItemGroup>
     <Compile Include="AdvancedNativeViews\AutoHeightWebview.cs" />
+    <Compile Include="AdvancedNativeViews\ToggleButton.cs" />
     <Compile Include="LayoutParameters.cs" />
     <Compile Include="ViewGroup.cs" />
     <Compile Include="LinearLayout.cs" />
