@@ -10,24 +10,14 @@ namespace XibFree.AdvancedNativeViews
     /// <summary>
     /// The attached Webview class will be autogrowing in height for the set width.
     /// This class notifies the nativeView of height changes.
+    /// WARNING: to prevent a KVO problems, set the View to null in ViewWillDisappear.
     /// </summary>
+    /// 
+    /// 
     public class AutoHeightWebview<T> : NativeView<T> where T : UIWebView
     {
 
-        private class LocalObjectForKVO  : NSObject
-        {
-            public static NSString KVOID = new NSString("contentSize");
-            public override void ObserveValue(NSString keyPath, NSObject ofObject, NSDictionary change, IntPtr context)
-            {
-                if (keyPath == KVOID) DoOnSizeUpdate();
-            }
-
-            private void DoOnSizeUpdate()
-            {
-                if (OnSizeUpdate != null) OnSizeUpdate();
-            }
-            internal Action OnSizeUpdate;
-        }
+        
 
         public AutoHeightWebview()
         {
@@ -46,6 +36,10 @@ namespace XibFree.AdvancedNativeViews
             AutoLayout = true;
         }
 
+      
+
+        
+
         public new T View
         {
             get
@@ -55,13 +49,16 @@ namespace XibFree.AdvancedNativeViews
             set
             {
                 RemoveKVOHandler(base.View);
+
                 base.View = value;
-                AttachKVOHandler(base.View);
+                if (value != null) AttachKVOHandler(base.View);
             }
         }
 
         private LocalObjectForKVO kvohandler = new LocalObjectForKVO();
         private Boolean _handlerAttached = false;
+
+        private Boolean ObserverAttached;
 
         protected void AttachKVOHandler(T view)
         {
@@ -73,6 +70,8 @@ namespace XibFree.AdvancedNativeViews
                 }
                 view.ScrollView.AddObserver(kvohandler, LocalObjectForKVO.KVOID, NSKeyValueObservingOptions.New, IntPtr.Zero);
                 
+                ObserverAttached = true;
+
             }
             
         }
@@ -86,12 +85,36 @@ namespace XibFree.AdvancedNativeViews
 
         protected void RemoveKVOHandler(T view)
         {
-            if (view != null)
+            if (view != null && ObserverAttached)
             {
-                view.ScrollView.RemoveObserver(kvohandler, LocalObjectForKVO.KVOID);
+                try
+                {
+                    view.InvokeOnMainThread( () => view.ScrollView.RemoveObserver(kvohandler, LocalObjectForKVO.KVOID));
+                } catch {}
+                
+                ObserverAttached = false;
+
             }
         }
 
 
     }
+
+    internal class LocalObjectForKVO : NSObject
+    {
+        public static NSString KVOID = new NSString("contentSize");
+
+        public override void ObserveValue(NSString keyPath, NSObject ofObject, NSDictionary change, IntPtr context)
+        {
+            if (keyPath == KVOID) DoOnSizeUpdate();
+        }
+
+        private void DoOnSizeUpdate()
+        {
+            if (OnSizeUpdate != null) OnSizeUpdate();
+        }
+        internal Action OnSizeUpdate;
+    }
+
+    
 }
