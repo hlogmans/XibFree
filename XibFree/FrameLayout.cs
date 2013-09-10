@@ -132,34 +132,39 @@ namespace XibFree
 			// Make room for padding
 			newPosition = newPosition.ApplyInsets(Padding);
 
-			if (!parentHidden && Visible)
-			{
-				// Position each view according to it's gravity
-				foreach (var v in SubViews)
-				{
-					if (v.Gone)
-					{
-						v.Layout(RectangleF.Empty, false);
-						continue;
-					}
+		    if (!parentHidden && Visible)
+		    {
+		        // Position each view according to it's gravity
+		        foreach (var v in SubViews)
+		        {
+		            if (v.Gone)
+		            {
+		                v.Layout(RectangleF.Empty, false);
+		                continue;
+		            }
 
-					// If subview has a gravity specified, use it, otherwise use our own
-					var g = v.LayoutParameters.Gravity;
-					if (g==Gravity.None)
-					{
-						g = this.Gravity;
-					}
+		            // If subview has a gravity specified, use it, otherwise use our own
+		            var g = v.LayoutParameters.Gravity;
+		            if (g == Gravity.None)
+		            {
+		                g = this.Gravity;
+		            }
 
-					// Get it's size
-					var size = v.GetMeasuredSize();
+		            // Get it's size
+		            var size = v.GetMeasuredSize();
 
-					// Work out it's position by apply margins and gravity
-					var subViewPosition = newPosition.ApplyInsets(v.LayoutParameters.Margins).ApplyGravity(size, g);
+		            // Work out it's position by apply margins and gravity
+		            var subViewPosition = newPosition.ApplyInsets(v.LayoutParameters.Margins).ApplyGravity(size, g);
 
-					// Position it
-					v.Layout(subViewPosition, false);
-				}
-			}
+		            // Position it
+		            v.Layout(subViewPosition, false);
+		        }
+		    }
+		    else
+		    { 
+                // also tell them all to hide themselves.
+		        foreach (var v in SubViews) v.Layout(RectangleF.Empty, true);
+		    }
 		}
 
 		public Gravity Gravity
