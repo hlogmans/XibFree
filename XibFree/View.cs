@@ -242,13 +242,21 @@ namespace XibFree
 		internal bool _measuredSizeValid;
 		internal ViewGroup _parent;
 
-	    protected Action VisibilityChanged;
+        /// <summary>
+        ///  internal event that is always performed first
+        /// </summary>
+	    protected Action InternalVisibilityChanged;
+        /// <summary>
+        /// Event that will be called when the visibility of a View changes. Called after internal updates are performed.
+        /// </summary>
+        public Action VisibilityChanged;
         public Boolean AutoLayout { get; set; }
 
 	    internal void DoVisibilityChanged()
 	    {
-	        if (VisibilityChanged != null) VisibilityChanged();
-	        var host = GetHost();
+            if (InternalVisibilityChanged != null) InternalVisibilityChanged();
+            if (VisibilityChanged != null) VisibilityChanged();
+            var host = GetHost();
 
 	        if (host != null) host.DoAutomaticLayout(AutoLayout);
 	    }

@@ -71,27 +71,32 @@ namespace XibFree
 			}
 			set
 			{
-				if (_view!=value)
-				{
-					// Detach old view from host
-					ViewGroup.IHost host = GetHost();
-					if (host!=null)
-					{
-						onDetach();
-					}
+			    if (_view != value)
+			    {
+			        // Detach old view from host
+			        ViewGroup.IHost host = GetHost();
+			        if (host != null)
+			        {
+			            onDetach();
+			        }
 
-					// Store the new view
-					_view = value;
+			        // Store the new view
+			        _view = value;
 
-					// Turn off auto-resizing, we'll take care of that thanks
-					_view.AutoresizingMask = UIViewAutoresizing.None;
+			        if (value != null)
+			        {
 
-					// Attach the new view to the host
-					if (host!=null)
-					{
-						onAttach(host);
-					}
-				}
+
+			            // Turn off auto-resizing, we'll take care of that thanks
+			            _view.AutoresizingMask = UIViewAutoresizing.None;
+
+			            // Attach the new view to the host
+			            if (host != null)
+			            {
+			                onAttach(host);
+			            }
+			        }
+			    }
 			}
 		}
 
@@ -249,7 +254,7 @@ namespace XibFree
 
         private void Initialize()
         {
-            VisibilityChanged += () =>
+            InternalVisibilityChanged += () =>
             {
                 if (View != null && Gone != View.Hidden) View.Hidden = Gone;
             };
@@ -260,7 +265,8 @@ namespace XibFree
             set
             {
                 base.View = value;
-                Gone = value.Hidden; // update the hidden and gone property
+                
+                Gone = value == null || value.Hidden; // update the hidden and gone property
             }
         }
 
