@@ -62,7 +62,7 @@ namespace XibFree
 
 			set
 			{
-				_layoutHost.Layout = Layout;
+				_layoutHost.Layout = value;
 				SetNeedsLayout();
 			}
 		}
