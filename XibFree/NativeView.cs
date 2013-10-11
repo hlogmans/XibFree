@@ -137,7 +137,7 @@ namespace XibFree
 
 			// Do we need to measure our content?
 			SizeF sizeMeasured = SizeF.Empty;
-			if (width == float.MaxValue || height == float.MaxValue)
+			if (_view != null && (width == float.MaxValue || height == float.MaxValue))
 			{
 				SizeF sizeToFit = new SizeF(width, height);
 				sizeMeasured = Measurer!=null ? Measurer(_view, sizeToFit) : _view.SizeThatFits(sizeToFit);
