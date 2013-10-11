@@ -60,7 +60,11 @@ namespace XibFree
 				{
 					c.Parent = this;
 				}
-
+				// Don't forget to detach all views
+				foreach (View v in _subViews) {
+					v.Parent = null;
+					v.onDetach ();
+				}
 				_subViews.Clear();
 				_subViews.AddRange(value);
 			}
