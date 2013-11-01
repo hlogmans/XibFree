@@ -235,9 +235,7 @@ namespace XibFree
 				c.onDetach();
 		}
 
-		protected override void onLayout(System.Drawing.RectangleF newPosition, bool parentHidden)
-		{
-			// Reposition the layer
+		protected void RepositionLayer(System.Drawing.RectangleF newPosition, bool parentHidden) {
 			if (_layer!=null)
 			{
 				bool newHidden = parentHidden || !Visible;
@@ -260,6 +258,15 @@ namespace XibFree
 					}
 				}
 			}
+		}
+
+		protected override void onLayout(System.Drawing.RectangleF newPosition, bool parentHidden)
+		{
+
+			// Reposition the layer
+			RepositionLayer (newPosition, parentHidden);
+
+
 
 			// Hide all subviews
 			if (parentHidden || !Visible)

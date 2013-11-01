@@ -129,6 +129,11 @@ namespace XibFree
 
 		protected override void onLayout(System.Drawing.RectangleF newPosition, bool parentHidden)
 		{
+			// Base not called because of different handling of Gravity
+
+			// Reposition the layer
+			RepositionLayer (newPosition, parentHidden);
+
 			// Make room for padding
 			newPosition = newPosition.ApplyInsets(Padding);
 
