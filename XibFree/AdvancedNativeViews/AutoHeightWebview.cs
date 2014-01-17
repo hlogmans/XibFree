@@ -79,7 +79,7 @@ namespace XibFree.AdvancedNativeViews
         private void OnSizeUpdate()
         {
             LayoutParameters.Height = View.ScrollView.ContentSize.Height;
-            DoVisibilityChanged();
+			DoVisibilityChanged();
 
         }
 

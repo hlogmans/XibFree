@@ -200,6 +200,7 @@ namespace XibFree
 		}
 
 		public abstract NativeView FindNativeView(UIView v);
+		public abstract void BringToFront(UIView actor);
 
 		public bool Gone
 		{

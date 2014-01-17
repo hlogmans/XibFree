@@ -321,6 +321,16 @@ namespace XibFree
 			return null;
 		}
 
+		public override void BringToFront(UIView actor)
+		{
+			actor.BringSubviewToFront (GetHost().GetUIView ());
+			//foreach (var v in _subViews)
+			//{
+			//	v.BringToFront (actor);
+			//}
+		}
+
+
 		internal override CALayer FindFirstSublayer()
 		{
 			foreach (var v in SubViews)

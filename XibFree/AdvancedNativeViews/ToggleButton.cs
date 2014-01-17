@@ -19,6 +19,7 @@ namespace XibFree.AdvancedNativeViews
 
             var button = new UIButton();
             button.SetImage(new UIImage(imageNameNormal), UIControlState.Normal);
+			button.ContentMode = UIViewContentMode.Center;
             base.LayoutParameters = new LayoutParameters(width, height);
             View = button;
 

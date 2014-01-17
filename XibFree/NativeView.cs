@@ -216,6 +216,13 @@ namespace XibFree
 				return null;
 		}
 
+		public override void BringToFront(UIView actor)
+		{
+			if (Visible) actor.BringSubviewToFront (_view);
+		}
+
+
+
 		internal override CALayer GetDisplayLayer()
 		{
 			return _view.Layer;
