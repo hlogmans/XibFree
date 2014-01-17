@@ -413,6 +413,69 @@ namespace XibFree
 		}
 
 		UIEdgeInsets _margins;
+
+		/// <summary>
+		/// Convenience class that lets you replace an expression like:
+		/// <code>
+		///     new LayoutParameters(AutoSize.FillParent, AutoSize.WrapContent)
+		/// </code>
+		/// with an expression of the form:
+		/// <code>
+		///     new LayoutParameters.FillWidth()
+		/// </code>
+		/// </summary>
+		public class FillWidth : LayoutParameters
+		{
+			public FillWidth() : base(AutoSize.FillParent, AutoSize.WrapContent)
+			{
+			}
+
+			public FillWidth(float weight) : base(AutoSize.FillParent, AutoSize.WrapContent, weight)
+			{
+			}
+		}
+
+		/// <summary>
+		/// Convenience class that lets you replace an expression like:
+		/// <code>
+		///     new LayoutParameters(AutoSize.WrapContent, AutoSize.FillParent)
+		/// </code>
+		/// with an expression of the form:
+		/// <code>
+		///     new LayoutParameters.FillHeight()
+		/// </code>
+		/// </summary>
+		public class FillHeight : LayoutParameters
+		{
+			public FillHeight() : base(AutoSize.WrapContent, AutoSize.FillParent)
+			{
+			}
+
+			public FillHeight(float weight) : base(AutoSize.WrapContent, AutoSize.FillParent, weight)
+			{
+			}
+		}
+
+		/// <summary>
+		/// Convenience class that lets you replace an expression like:
+		/// <code>
+		///     new LayoutParameters(AutoSize.FillParent, AutoSize.FillParent)
+		/// </code>
+		/// with an expression of the form:
+		/// <code>
+		///     new LayoutParameters.FillParent()
+		/// </code>
+		/// </summary>
+		public class FillParent : LayoutParameters
+		{
+			public FillParent() : base(AutoSize.FillParent, AutoSize.FillParent)
+			{
+			}
+
+			public FillParent(float weight) : base(AutoSize.FillParent, AutoSize.FillParent, weight)
+			{
+			}
+		}
 	}
 }
 
