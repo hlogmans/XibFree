@@ -31,7 +31,7 @@
     <ConsolePause>false</ConsolePause>
     <CustomCommands>
       <CustomCommands>
-        <Command type="AfterBuild" command="cp ${TargetFile} ${SolutionDir}/out" workingdir="" />
+        <Command type="AfterBuild" command="cp &quot;${TargetFile}&quot; &quot;${SolutionDir}/out&quot;" workingdir="" />
       </CustomCommands>
     </CustomCommands>
   </PropertyGroup>
