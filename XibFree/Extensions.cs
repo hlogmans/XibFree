@@ -58,7 +58,6 @@ namespace XibFree
 
 			case Gravity.CenterHorizontal:
 				left = (bounds.Left + bounds.Right - size.Width) / 2;
-				Console.WriteLine ("Bounds: left: {0} right: {1} width:{2}, result: {3}", bounds.Left, bounds.Right, size.Width, left);
 					break;
 			}
 
