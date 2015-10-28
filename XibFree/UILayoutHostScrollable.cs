@@ -15,8 +15,8 @@
 //    limitations under the License.
 
 using System;
-using MonoTouch.UIKit;
-using System.Drawing;
+using UIKit;
+using CoreGraphics;
 
 namespace XibFree
 {
@@ -29,7 +29,7 @@ namespace XibFree
 		/// Initializes a new instance of the <see cref="XibFree.UILayoutHostScrollable"/> class.
 		/// </summary>
 		/// <param name="layout">Root of the view hierarchy to be hosted by this layout host</param>
-		public UILayoutHostScrollable(ViewGroup layout, RectangleF frame) : base(frame)
+		public UILayoutHostScrollable(ViewGroup layout, CGRect frame) : base(frame)
 		{
 			_layoutHost = new UILayoutHost(layout);
 		    _layoutHost.Container = this; // make sure the child layouthost knowns about this special construction.
@@ -39,11 +39,11 @@ namespace XibFree
 			this.AddSubview(_layoutHost);
 		}
 
-		public UILayoutHostScrollable() : this(null, RectangleF.Empty)
+		public UILayoutHostScrollable() : this(null, CGRect.Empty)
 		{
 		}
 
-		public UILayoutHostScrollable(ViewGroup layout) : this(layout, RectangleF.Empty)
+		public UILayoutHostScrollable(ViewGroup layout) : this(layout, CGRect.Empty)
 		{
 		}
 
@@ -67,7 +67,7 @@ namespace XibFree
 			}
 		}
 
-		public override SizeF SizeThatFits(SizeF size)
+		public override CGSize SizeThatFits(CGSize size)
 		{
 			return _layoutHost.SizeThatFits(size);
 		}
@@ -82,12 +82,12 @@ namespace XibFree
 			if (Layout!=null)
 			{
 				// Remeasure the layout
-				Layout.Measure(Bounds.Width, float.MaxValue);
+				Layout.Measure(Bounds.Width, nfloat.MaxValue);
 
 				var size = Layout.GetMeasuredSize();
 
 				// Reposition the layout host
-				_layoutHost.Frame = new RectangleF(PointF.Empty, size);
+				_layoutHost.Frame = new CGRect(CGPoint.Empty, size);
 
 				// Update the scroll view content
 				ContentSize = size;
