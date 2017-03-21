@@ -9,7 +9,7 @@
     <RootNamespace>XibFree</RootNamespace>
     <IPhoneResourcePrefix>Resources</IPhoneResourcePrefix>
     <AssemblyName>XibFree</AssemblyName>
-    <ReleaseVersion>2015.1.0</ReleaseVersion>
+    <ReleaseVersion>2016.0.5</ReleaseVersion>
     <TargetFrameworkIdentifier>Xamarin.iOS</TargetFrameworkIdentifier>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -31,7 +31,11 @@
     <ConsolePause>false</ConsolePause>
     <CustomCommands>
       <CustomCommands>
-        <Command type="AfterBuild" command="cp ${TargetFile} ${SolutionDir}/out" workingdir="" />
+        <Command>
+          <type>AfterBuild</type>
+          <command>cp ${TargetFile} ${SolutionDir}/out</command>
+          <workingdir></workingdir>
+        </Command>
       </CustomCommands>
     </CustomCommands>
   </PropertyGroup>
